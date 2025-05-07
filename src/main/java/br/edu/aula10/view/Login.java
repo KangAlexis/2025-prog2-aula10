@@ -4,6 +4,7 @@
  */
 package br.edu.aula10.view;
 
+import br.edu.aula10.util.ConfiguraCompenentes;
 import java.awt.Color;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -15,6 +16,7 @@ import java.awt.event.FocusListener;
  */
 public class Login extends javax.swing.JFrame {
 
+    private ConfiguraCompenentes cf = new ConfiguraCompenentes();
     /**
      * Creates new form Login
      */
@@ -22,7 +24,7 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         setResizable(false); //Não deixa maximizar a tela
         setLocationRelativeTo(null); //Deixa a view no centro
-        configuraCampos();
+        configCampos();
     }
 
     /**
@@ -58,6 +60,11 @@ public class Login extends javax.swing.JFrame {
         chbMostrarSenha.setText("Mostrar senha");
 
         btnEntrar.setText("Entrar");
+        btnEntrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEntrarActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Caso não tenha uma conta,");
 
@@ -135,6 +142,10 @@ public class Login extends javax.swing.JFrame {
         this.dispose(); //fecha a view atual
     }//GEN-LAST:event_lblCliqueAquiMouseClicked
 
+    private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
+        new Principal().setVisible(true);
+    }//GEN-LAST:event_btnEntrarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -181,26 +192,8 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JTextField txtEmail;
     // End of variables declaration//GEN-END:variables
 
-    private void configuraCampos(){
-        txtEmail.setText("Email");
-        txtEmail.setForeground(Color.GRAY);
-        
-        txtEmail.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                if(txtEmail.getText().equals("Email")){
-                    txtEmail.setText("");
-                    txtEmail.setForeground(Color.BLACK);
-                }
-            }
-            
-            @Override
-            public void focusLost(FocusEvent e) {
-               if(txtEmail.getText().equals("")){
-                   txtEmail.setText("Email");
-                   txtEmail.setForeground(Color.GRAY);
-               }  
-            }
-        });
+    private void configCampos(){
+        cf.configCampoTexto(txtEmail, "Email");
+        cf.configCampoSenha(psfSenha, "Senha");   
     }
 }
