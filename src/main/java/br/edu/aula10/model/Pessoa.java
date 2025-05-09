@@ -21,12 +21,14 @@ public class Pessoa {
     private String pais;
     private String estado;
     private String cidade;
+    private String email;
+    private String senha;
 
     public Pessoa() {
         
     }
 
-    public Pessoa(int id, String nome, String sobrenome, LocalDate dataNasc, String sexo, String pais, String estado, String cidade) {
+    public Pessoa(int id, String nome, String sobrenome, LocalDate dataNasc, String sexo, String pais, String estado, String cidade, String email, String senha) {
         this.id = id;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -35,7 +37,35 @@ public class Pessoa {
         this.pais = pais;
         this.estado = estado;
         this.cidade = cidade;
+        this.email = email;
+        this.senha = senha;
     }
+
+    public static int getValorId() {
+        return valorId;
+    }
+
+    public static void setValorId(int valorId) {
+        Pessoa.valorId = valorId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    
 
     public int getId() {
         return id;

@@ -4,19 +4,19 @@
  */
 package br.edu.aula10.view;
 
+import br.edu.aula10.model.Pessoa;
 import br.edu.aula10.util.ConfiguraCompenentes;
-import java.awt.Color;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
+import java.util.ArrayList;
 
 /**
  *
- * @author User
+ * @author Alexis D. Kang
  */
 public class Login extends javax.swing.JFrame {
 
-    private ConfiguraCompenentes cf = new ConfiguraCompenentes();
+    private final ConfiguraCompenentes cf = new ConfiguraCompenentes();
+    private ArrayList<Pessoa> listaDePessoas = new ArrayList<Pessoa>();
+    
     /**
      * Creates new form Login
      */
@@ -58,6 +58,11 @@ public class Login extends javax.swing.JFrame {
 
         chbMostrarSenha.setBackground(new java.awt.Color(255, 255, 255));
         chbMostrarSenha.setText("Mostrar senha");
+        chbMostrarSenha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chbMostrarSenhaActionPerformed(evt);
+            }
+        });
 
         btnEntrar.setText("Entrar");
         btnEntrar.addActionListener(new java.awt.event.ActionListener() {
@@ -138,13 +143,18 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblCliqueAquiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCliqueAquiMouseClicked
-        new Cadastro().setVisible(true);
+        new Cadastro(listaDePessoas).setVisible(true);
         this.dispose(); //fecha a view atual
     }//GEN-LAST:event_lblCliqueAquiMouseClicked
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         new Principal().setVisible(true);
     }//GEN-LAST:event_btnEntrarActionPerformed
+
+    private void chbMostrarSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbMostrarSenhaActionPerformed
+        String senha =  String.valueOf(psfSenha.getPassword());
+        cf.configCheckBox(chbMostrarSenha, psfSenha, "Senha", senha );
+    }//GEN-LAST:event_chbMostrarSenhaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -162,22 +172,16 @@ public class Login extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        
+        //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Login().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Login().setVisible(true);
         });
     }
 
@@ -195,5 +199,6 @@ public class Login extends javax.swing.JFrame {
     private void configCampos(){
         cf.configCampoTexto(txtEmail, "Email");
         cf.configCampoSenha(psfSenha, "Senha");   
-    }
+    }   
 }
+

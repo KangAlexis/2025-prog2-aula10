@@ -4,9 +4,11 @@
  */
 package br.edu.aula10.util;
 
+
 import java.awt.Color;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import javax.swing.JCheckBox;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
@@ -66,4 +68,12 @@ public class ConfiguraCompenentes {
             }
         });
     }
+    
+    public void configCheckBox(JCheckBox componente, JPasswordField campoSenha, String texto, String senha){
+        if(componente.isSelected() || senha.equals(texto)){
+            campoSenha.setEchoChar((char) 0); 
+        }else{
+            campoSenha.setEchoChar('•');
+        }
+     }
 }
