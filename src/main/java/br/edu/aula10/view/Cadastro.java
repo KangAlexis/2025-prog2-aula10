@@ -4,7 +4,11 @@
  */
 package br.edu.aula10.view;
 
+import br.edu.aula10.model.Pessoa;
 import br.edu.aula10.util.ConfiguraCompenentes;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 /**
  *
@@ -13,10 +17,19 @@ import br.edu.aula10.util.ConfiguraCompenentes;
 public class Cadastro extends javax.swing.JFrame {
 
     private ConfiguraCompenentes cf = new ConfiguraCompenentes();
+    private ArrayList<Pessoa> listaDePessoas = new ArrayList<Pessoa>(); 
     
     public Cadastro() {
         initComponents();
         configCampos();
+    }
+    
+    public Cadastro(ArrayList<Pessoa> listaDePessoas){
+        this.listaDePessoas = listaDePessoas;
+        initComponents();
+        configCampos();
+        setLocationRelativeTo(this);
+        setResizable(false);
     }
 
     /**
@@ -43,8 +56,8 @@ public class Cadastro extends javax.swing.JFrame {
         psfConfirmarSenha = new javax.swing.JPasswordField();
         txtCidade = new javax.swing.JTextField();
         cbxUF = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,9 +84,14 @@ public class Cadastro extends javax.swing.JFrame {
 
         cbxUF.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "UF", "Acre - AC", "Alagoas - AL", "Amapá - AP", "Amazonas - AM", "Bahia - BA", "Ceará - CE", "Distrito Federal - DF", "Espírito Santo - ES", "Goiás - GO", "Maranhão - MA", "Mato Grosso - MT", "Mato Grosso do Sul - MS", "Minas Gerais - MG", "Pará - PA", "Paraíba - PB", "Paraná - PR", "Pernambuco - PE", "Piauí - PI", "Rio de Janeiro - RJ", "Rio Grande do Norte - RN", "Rio Grande do Sul - RS", "Rondônia - RO", "Roraima - RR", "Santa Catarina - SC", "São Paulo - SP", "Sergipe - SE", "Tocantins - TO" }));
 
-        jButton1.setText("Cancelar");
+        btnCancelar.setText("Cancelar");
 
-        jButton2.setText("Salvar");
+        btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -88,9 +106,9 @@ public class Cadastro extends javax.swing.JFrame {
                         .addGap(31, 31, 31)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton2)
+                                .addComponent(btnSalvar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1))
+                                .addComponent(btnCancelar))
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -144,8 +162,8 @@ public class Cadastro extends javax.swing.JFrame {
                     .addComponent(cbxUF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(btnCancelar)
+                    .addComponent(btnSalvar))
                 .addGap(20, 20, 20))
         );
 
@@ -164,6 +182,10 @@ public class Cadastro extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        Pessoa p = retornaPessoa();
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -202,10 +224,10 @@ public class Cadastro extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgrSexo;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnSalvar;
     private javax.swing.JComboBox<String> cbxUF;
     private javax.swing.JFormattedTextField ftdDataNasc;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -227,5 +249,39 @@ public class Cadastro extends javax.swing.JFrame {
         cf.configCampoTexto(txtCidade, "Cidade");
         cf.configCampoSenha(psfSenha, "Senha");
         cf.configCampoSenha(psfConfirmarSenha, "Confirmar senha");
+        
+    }
+    
+    private Pessoa retornaPessoa(){
+        
+        String nome = txtNome.getText();
+        String sobrenome = txtSobrenome.getText();
+        String cidade = txtCidade.getText();
+        String email = txtEmail.getText();
+        String data = ftdDataNasc.getText();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate dataNasc = LocalDate.parse(data,dtf);
+        String sexo;
+        if(rdbMasculino.isSelected()){
+            sexo = "Masculino";
+        }else{
+            sexo = "Feminino";
+        }
+        String senha = String.valueOf(psfSenha.getPassword());
+        String estado = cbxUF.getSelectedItem().toString();
+       
+        Pessoa p = new Pessoa();
+        p.setNome(nome);
+        p.setSobrenome(sobrenome);
+        p.setEmail(email);
+        p.setCidade(cidade);
+        p.setDataNasc(dataNasc);
+        p.setSexo(sexo);
+        p.setSenha(senha);
+        p.setEstado(estado);
+        
+        System.out.println(p.toString());
+        
+        return p;
     }
 }
