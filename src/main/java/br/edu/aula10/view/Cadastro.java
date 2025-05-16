@@ -6,9 +6,13 @@ package br.edu.aula10.view;
 
 import br.edu.aula10.model.Pessoa;
 import br.edu.aula10.util.ConfiguraCompenentes;
+import br.edu.aula10.util.ValidarCampos;
+import java.awt.Color;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.border.LineBorder;
 
 /**
  *
@@ -18,6 +22,7 @@ public class Cadastro extends javax.swing.JFrame {
 
     private ConfiguraCompenentes cf = new ConfiguraCompenentes();
     private ArrayList<Pessoa> listaDePessoas = new ArrayList<Pessoa>(); 
+    private ValidarCampos validaCampos = new ValidarCampos();
     
     public Cadastro() {
         initComponents();
@@ -85,6 +90,11 @@ public class Cadastro extends javax.swing.JFrame {
         cbxUF.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "UF", "Acre - AC", "Alagoas - AL", "Amapá - AP", "Amazonas - AM", "Bahia - BA", "Ceará - CE", "Distrito Federal - DF", "Espírito Santo - ES", "Goiás - GO", "Maranhão - MA", "Mato Grosso - MT", "Mato Grosso do Sul - MS", "Minas Gerais - MG", "Pará - PA", "Paraíba - PB", "Paraná - PR", "Pernambuco - PE", "Piauí - PI", "Rio de Janeiro - RJ", "Rio Grande do Norte - RN", "Rio Grande do Sul - RS", "Rondônia - RO", "Roraima - RR", "Santa Catarina - SC", "São Paulo - SP", "Sergipe - SE", "Tocantins - TO" }));
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         btnSalvar.setText("Salvar");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -184,8 +194,19 @@ public class Cadastro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        Pessoa p = retornaPessoa();
+        
+        if(validaCampos()){
+            Pessoa p = retornaPessoa();
+            listaDePessoas.add(p);
+            Login login = new Login(listaDePessoas);
+            login.setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -283,5 +304,29 @@ public class Cadastro extends javax.swing.JFrame {
         System.out.println(p.toString());
         
         return p;
+    }
+    
+    private boolean validaCampos(){
+        boolean resultado =  true;
+        
+        if(validaCampos.validaTextField(txtNome, "Nome")) resultado = false;
+        if(validaCampos.validaTextField(txtSobrenome, "Sobrenome")) resultado = false;
+        if(validaCampos.validaTextField(txtCidade, "Cidade")) resultado = false;
+        if(validaCampos.validaTextField(txtEmail, "Email")) resultado = false;
+        if(validaCampos.validarDataNascimento(ftdDataNasc)) resultado = false;
+        if(validaCampos.validarRadioButton(rdbMasculino, rdbFeminino)) resultado = false;
+        if(validaCampos.validaPasswordField(psfSenha, "Senha")) resultado = false;
+        if(validaCampos.validaPasswordField(psfConfirmarSenha, "Confirmar senha")) resultado = false;
+        if(validaCampos.validarComboBox(cbxUF)) resultado = false;
+        
+        String senha = String.valueOf(psfSenha.getPassword());
+        String confirmarSenha = String.valueOf(psfConfirmarSenha.getPassword());
+        
+        if(!senha.equals(confirmarSenha)) {
+            JOptionPane.showMessageDialog(this, "As senhas não coincidem!");
+            resultado = false;
+        }
+        
+        return resultado;
     }
 }

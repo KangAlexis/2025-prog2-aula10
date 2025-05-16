@@ -18,7 +18,6 @@ public class Pessoa {
     private String sobrenome;
     private LocalDate dataNasc;
     private String sexo;
-    private String pais;
     private String estado;
     private String cidade;
     private String email;
@@ -28,13 +27,12 @@ public class Pessoa {
         
     }
 
-    public Pessoa(int id, String nome, String sobrenome, LocalDate dataNasc, String sexo, String pais, String estado, String cidade, String email, String senha) {
+    public Pessoa(int id, String nome, String sobrenome, LocalDate dataNasc, String sexo, String estado, String cidade, String email, String senha) {
         this.id = id;
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.dataNasc = dataNasc;
         this.sexo = sexo;
-        this.pais = pais;
         this.estado = estado;
         this.cidade = cidade;
         this.email = email;
@@ -109,14 +107,6 @@ public class Pessoa {
         this.sexo = sexo;
     }
 
-    public String getPais() {
-        return pais;
-    }
-
-    public void setPais(String pais) {
-        this.pais = pais;
-    }
-
     public String getEstado() {
         return estado;
     }
@@ -135,7 +125,7 @@ public class Pessoa {
 
     @Override
     public String toString() {
-        return "Pessoa{" + "id=" + id + ", nome=" + nome + ", sobrenome=" + sobrenome + ", dataNasc=" + dataNasc + ", sexo=" + sexo + ", pais=" + pais + ", estado=" + estado + ", cidade=" + cidade + ", email=" + email + ", senha=" + senha + '}';
+        return "Pessoa{" + "id=" + id + ", nome=" + nome + ", sobrenome=" + sobrenome + ", dataNasc=" + dataNasc + ", sexo=" + sexo + ", estado=" + estado + ", cidade=" + cidade + ", email=" + email + ", senha=" + senha + '}';
     }
 
     

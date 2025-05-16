@@ -26,6 +26,15 @@ public class Login extends javax.swing.JFrame {
         setLocationRelativeTo(null); //Deixa a view no centro
         configCampos();
     }
+    
+    public Login(ArrayList<Pessoa> listaDePessoas){
+        this.listaDePessoas = listaDePessoas;
+        initComponents();
+        setResizable(false); //Não deixa maximizar a tela
+        setLocationRelativeTo(null); //Deixa a view no centro
+        configCampos();
+        System.out.println(listaDePessoas.toString());
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
