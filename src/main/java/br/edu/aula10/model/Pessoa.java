@@ -12,8 +12,6 @@ import java.time.LocalDate;
  */
 public class Pessoa {
     
-    private static int valorId = 0;
-    private int id;
     private String nome;
     private String sobrenome;
     private LocalDate dataNasc;
@@ -27,8 +25,8 @@ public class Pessoa {
         
     }
 
-    public Pessoa(int id, String nome, String sobrenome, LocalDate dataNasc, String sexo, String estado, String cidade, String email, String senha) {
-        this.id = id;
+    public Pessoa( String nome, String sobrenome, LocalDate dataNasc, String sexo, String estado, String cidade, String email, String senha) {
+      
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.dataNasc = dataNasc;
@@ -37,14 +35,6 @@ public class Pessoa {
         this.cidade = cidade;
         this.email = email;
         this.senha = senha;
-    }
-
-    public static int getValorId() {
-        return valorId;
-    }
-
-    public static void setValorId(int valorId) {
-        Pessoa.valorId = valorId;
     }
 
     public String getEmail() {
@@ -63,16 +53,7 @@ public class Pessoa {
         this.senha = senha;
     }
 
-    
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        
-        this.id = valorId++;
-    }
 
     public String getNome() {
         return nome;
@@ -125,7 +106,7 @@ public class Pessoa {
 
     @Override
     public String toString() {
-        return "Pessoa{" + "id=" + id + ", nome=" + nome + ", sobrenome=" + sobrenome + ", dataNasc=" + dataNasc + ", sexo=" + sexo + ", estado=" + estado + ", cidade=" + cidade + ", email=" + email + ", senha=" + senha + '}';
+        return "Pessoa{" + "Nome=" + nome + ", sobrenome=" + sobrenome + ", dataNasc=" + dataNasc + ", sexo=" + sexo + ", estado=" + estado + ", cidade=" + cidade + ", email=" + email + ", senha=" + senha + '}';
     }
 
     
