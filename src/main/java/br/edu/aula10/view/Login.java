@@ -1,3 +1,6 @@
+
+
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -7,6 +10,7 @@ package br.edu.aula10.view;
 import br.edu.aula10.model.Pessoa;
 import br.edu.aula10.util.ConfiguraCompenentes;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -157,7 +161,21 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_lblCliqueAquiMouseClicked
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        new Principal().setVisible(true);
+        
+        String email = txtEmail.getText();
+        String senha = String.valueOf(psfSenha.getPassword());
+        
+        for(int i = 0 ; i < listaDePessoas.size(); i++){
+            if(listaDePessoas.get(i).getEmail().equals(email) &&
+                    listaDePessoas.get(i).getSenha().equals(senha)
+                    ){
+                new Principal(listaDePessoas).setVisible(true);
+                this.dispose();
+            }else{
+                JOptionPane.showMessageDialog(this, 
+                        "Email e senha não coincidem!");
+            }
+        }
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     private void chbMostrarSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbMostrarSenhaActionPerformed

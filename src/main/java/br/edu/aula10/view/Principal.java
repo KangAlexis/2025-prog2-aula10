@@ -4,17 +4,24 @@
  */
 package br.edu.aula10.view;
 
+import br.edu.aula10.model.Pessoa;
+import java.util.ArrayList;
+
 /**
  *
  * @author User
  */
 public class Principal extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Principal
-     */
+    private ArrayList<Pessoa> listaDePessoas = new ArrayList<Pessoa>();
+    
     public Principal() {
         initComponents();
+    }
+    
+    public Principal(ArrayList<Pessoa> listaDePessoas){
+        initComponents();
+        this.listaDePessoas =  listaDePessoas;
     }
 
     /**
